@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBlog - Búsqueda Personalizada</title>
+    <script async src="https://cse.google.com/cse.js?cx=TU_ENGINE_ID"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .search-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .search-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .article-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .article-card h3 {
+            color: #667eea;
+            margin-bottom: 12px;
+            font-size: 1.4em;
+        }
+
+        .article-card .category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .article-card .keywords {
+            color: #999;
+            font-size: 0.9em;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        footer {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+        }
+
+        .info-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info-box strong {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TechBlog</h1>
+            <p class="subtitle">Tu fuente de información sobre tecnología, programación y desarrollo web</p>
+        </header>
+
+        <div class="search-section">
+            <h2>Busca en nuestro sitio</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                Prueba buscar: JavaScript, Python, HTML, CSS, React, inteligencia artificial, etc.
+            </p>
+            <div class="gcse-searchbox-only"></div>
+            
+            <div class="info-box">
+                <strong>Instrucciones:</strong> Reemplaza <code>TU_ENGINE_ID</code> en el código HTML (línea 7) 
+                con el ID de tu motor de búsqueda de Google. Lo encuentras en el Panel de Control de Google Programmable Search Engine.
+            </div>
+        </div>
+
+        <h2 style="color: #333; text-align: center; margin-bottom: 20px; font-size: 2em;">
+            Artículos Recientes
+        </h2>
+
+        <div class="content-grid">
+            <div class="article-card">
+                <span class="category">JavaScript</span>
+                <h3>Introducción a JavaScript Moderno</h3>
+                <p>JavaScript es el lenguaje de programación más popular para desarrollo web. En este artículo exploramos las características modernas de ES6+, incluyendo arrow functions, destructuring, y promesas.</p>
+                <p>Aprende sobre async/await, módulos ES6, template literals y todas las nuevas funcionalidades que hacen de JavaScript un lenguaje más poderoso y expresivo.</p>
+                <p class="keywords">Palabras clave: JavaScript, ES6, programación, desarrollo web, async await, promesas</p>
+            </div>
+
+            <div class="article-card">
+                <span class="category">Python</span>
+                <h3>Python para Data Science</h3>
+                <p>Python se ha convertido en el lenguaje preferido para ciencia de datos y machine learning. Descubre las bibliotecas esenciales como NumPy, Pandas, y Matplotlib.</p>
+                <p>Explora cómo Python facilita el análisis de datos, visualización y creación de modelos de inteligencia artificial con frameworks como TensorFlow y scikit-learn.</p>
+                <p class="keywords">Palabras clave: Python, data science, machine learning, pandas, numpy, inteligencia artificial</p>
+            </div>
+
+            <div class="article-card">
+                <span class="category">HTML & CSS</span>
+                <h3>CSS Grid y Flexbox: Guía Completa</h3>
+                <p>El diseño responsive es esencial en el desarrollo web moderno. CSS Grid y Flexbox son las herramientas fundamentales para crear layouts flexibles y adaptables.</p>
+                <p>Aprende a crear diseños profesionales utilizando estas técnicas de CSS moderno, desde layouts simples hasta diseños complejos multi-columna.</p>
+                <p class="keywords">Palabras clave: CSS, HTML, flexbox, grid, diseño responsive, frontend</p>
+            </div>
+
+            <div class="article-card">
+                <span class="category">React</span>
+                <h3>React: Componentes y Hooks</h3>
+                <p>React revolucionó el desarrollo frontend con su arquitectura basada en componentes. Los Hooks permiten usar state y otras características sin escribir clases.</p>
+                <p>Descubre useState, useEffect, useContext y crea aplicaciones web interactivas y escalables con React. Aprende las mejores prácticas y patrones de diseño.</p>
+                <p class="keywords">Palabras clave: React, hooks, componentes, frontend, useState, useEffect, SPA</p>
+            </div>
+
+            <div class="article-card">
+                <span class="category">Bases de Datos</span>
+                <h3>SQL vs NoSQL: ¿Cuál elegir?</h3>
+                <p>Las bases de datos son fundamentales en cualquier aplicación. SQL ofrece estructura y relaciones, mientras que NoSQL proporciona flexibilidad y escalabilidad.</p>
+                <p>Compara PostgreSQL, MySQL, MongoDB y Redis. Entiende cuándo usar cada tipo de base de datos según las necesidades de tu proyecto.</p>
+                <p class="keywords">Palabras clave: SQL, NoSQL, bases de datos, MongoDB, PostgreSQL, MySQL</p>
+            </div>
+
+            <div class="article-card">
+                <span class="category">DevOps</span>
+                <h3>Docker y Contenedores</h3>
+                <p>Docker ha transformado la forma en que desplegamos aplicaciones. Los contenedores garantizan que tu aplicación funcione igual en cualquier entorno.</p>
+                <p>Aprende sobre contenedorización, imágenes Docker, Docker Compose y cómo implementar microservicios escalables y portables.</p>
+                <p class="keywords">Palabras clave: Docker, contenedores, DevOps, microservicios, deploy, kubernetes</p>
+            </div>
+
+            <div class="article-card">
+                <span class="category">Inteligencia Artificial</span>
+                <h3>ChatGPT y LLMs: El Futuro de la IA</h3>
+                <p>Los modelos de lenguaje grandes (LLMs) como GPT-4 están revolucionando la inteligencia artificial. Descubre cómo funcionan y cómo integrarlos en tus aplicaciones.</p>
+                <p>Explora las APIs de OpenAI, Claude y otros servicios de IA generativa para crear aplicaciones inteligentes y automatizar tareas complejas.</p>
+                <p class="keywords">Palabras clave: inteligencia artificial, ChatGPT, LLM, IA generativa, GPT-4, machine learning</p>
+            </div>
+
+            <div class="article-card">
+                <span class="category">Git & GitHub</span>
+                <h3>Control de Versiones con Git</h3>
+                <p>Git es esencial para cualquier desarrollador. Aprende a gestionar versiones de código, trabajar en equipo y colaborar en proyectos open source.</p>
+                <p>Domina comandos como commit, push, pull, merge y rebase. Descubre GitHub Actions para CI/CD y automatización de flujos de trabajo.</p>
+                <p class="keywords">Palabras clave: Git, GitHub, control de versiones, repositorios, colaboración, CI/CD</p>
+            </div>
+
+            <div class="article-card">
+                <span class="category">Seguridad</span>
+                <h3>Seguridad Web: HTTPS y JWT</h3>
+                <p>La seguridad es crítica en aplicaciones web. Aprende sobre encriptación HTTPS, autenticación con JWT, y protección contra vulnerabilidades comunes.</p>
+                <p>Descubre cómo implementar autenticación segura, prevenir ataques XSS y SQL injection, y proteger los datos de tus usuarios.</p>
+                <p class="keywords">Palabras clave: seguridad, HTTPS, JWT, autenticación, encriptación, vulnerabilidades</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 TechBlog - Sitio de demostración para Google Custom Search</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                Este sitio contiene contenido rico en palabras clave para probar la funcionalidad de búsqueda personalizada de Google
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
