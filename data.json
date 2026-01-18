@@ -1,171 +1,81 @@
 {
-    "responseHeader": {
-        "status": 0,
-        "QTime": 0,
-        "params": {
-            "q": "*:*",
-            "rows": "100",
-            "wt": "json"
-        }
-    },
-    "response": {
-        "numFound": 9,
-        "start": 0,
-        "numFoundExact": true,
-        "docs": [
-            {
-                "id": "1",
-                "title": [
-                    "Introducci\ufffdn a JavaScript Moderno"
-                ],
-                "category": [
-                    "JavaScript"
-                ],
-                "content": [
-                    "JavaScript es el lenguaje de programaci\ufffdn m\ufffds popular para desarrollo web. En este art\ufffdculo exploramos las caracter\ufffdsticas modernas de ES6+, incluyendo arrow functions, destructuring, y promesas. Aprende sobre async\/await, m\ufffddulos ES6, template literals y todas las nuevas funcionalidades."
-                ],
-                "keywords": [
-                    "JavaScript, ES6, programaci\ufffdn, desarrollo web, async await, promesas"
-                ],
-                "_version_": 1854626212290232320,
-                "_root_": "1"
-            },
-            {
-                "id": "2",
-                "title": [
-                    "Python para Data Science"
-                ],
-                "category": [
-                    "Python"
-                ],
-                "content": [
-                    "Python se ha convertido en el lenguaje preferido para ciencia de datos y machine learning. Descubre las bibliotecas esenciales como NumPy, Pandas, y Matplotlib. Explora c\ufffdmo Python facilita el an\ufffdlisis de datos, visualizaci\ufffdn y creaci\ufffdn de modelos de inteligencia artificial."
-                ],
-                "keywords": [
-                    "Python, data science, machine learning, pandas, numpy, inteligencia artificial"
-                ],
-                "_version_": 1854626212326932480,
-                "_root_": "2"
-            },
-            {
-                "id": "3",
-                "title": [
-                    "CSS Grid y Flexbox: Gu\ufffda Completa"
-                ],
-                "category": [
-                    "HTML & CSS"
-                ],
-                "content": [
-                    "El dise\ufffdo responsive es esencial en el desarrollo web moderno. CSS Grid y Flexbox son las herramientas fundamentales para crear layouts flexibles y adaptables. Aprende a crear dise\ufffdos profesionales utilizando estas t\ufffdcnicas de CSS moderno."
-                ],
-                "keywords": [
-                    "CSS, HTML, flexbox, grid, dise\ufffdo responsive, frontend"
-                ],
-                "_version_": 1854626212326932481,
-                "_root_": "3"
-            },
-            {
-                "id": "4",
-                "title": [
-                    "React: Componentes y Hooks"
-                ],
-                "category": [
-                    "React"
-                ],
-                "content": [
-                    "React revolucion\ufffd el desarrollo frontend con su arquitectura basada en componentes. Los Hooks permiten usar state y otras caracter\ufffdsticas sin escribir clases. Descubre useState, useEffect, useContext y crea aplicaciones web interactivas."
-                ],
-                "keywords": [
-                    "React, hooks, componentes, frontend, useState, useEffect, SPA"
-                ],
-                "_version_": 1854626212327981056,
-                "_root_": "4"
-            },
-            {
-                "id": "5",
-                "title": [
-                    "SQL vs NoSQL: Cu\ufffdl elegir?"
-                ],
-                "category": [
-                    "Bases de Datos"
-                ],
-                "content": [
-                    "Las bases de datos son fundamentales en cualquier aplicaci\ufffdn. SQL ofrece estructura y relaciones, mientras que NoSQL proporciona flexibilidad y escalabilidad. Compara PostgreSQL, MySQL, MongoDB y Redis."
-                ],
-                "keywords": [
-                    "SQL, NoSQL, bases de datos, MongoDB, PostgreSQL, MySQL"
-                ],
-                "_version_": 1854626212327981057,
-                "_root_": "5"
-            },
-            {
-                "id": "6",
-                "title": [
-                    "Docker y Contenedores"
-                ],
-                "category": [
-                    "DevOps"
-                ],
-                "content": [
-                    "Docker ha transformado la forma en que desplegamos aplicaciones. Los contenedores garantizan que tu aplicaci\ufffdn funcione igual en cualquier entorno. Aprende sobre contenedorizaci\ufffdn, im\ufffdgenes Docker, Docker Compose y microservicios."
-                ],
-                "keywords": [
-                    "Docker, contenedores, DevOps, microservicios, deploy, kubernetes"
-                ],
-                "_version_": 1854626212329029632,
-                "_root_": "6"
-            },
-            {
-                "id": "7",
-                "title": [
-                    "ChatGPT y LLMs: El Futuro de la IA"
-                ],
-                "category": [
-                    "Inteligencia Artificial"
-                ],
-                "content": [
-                    "Los modelos de lenguaje grandes como GPT-4 est\ufffdn revolucionando la inteligencia artificial. Descubre c\ufffdmo funcionan y c\ufffdmo integrarlos en tus aplicaciones. Explora las APIs de OpenAI, Claude y otros servicios de IA generativa."
-                ],
-                "keywords": [
-                    "inteligencia artificial, ChatGPT, LLM, IA generativa, GPT-4, machine learning"
-                ],
-                "_version_": 1854626212330078208,
-                "_root_": "7"
-            },
-            {
-                "id": "8",
-                "title": [
-                    "Control de Versiones con Git"
-                ],
-                "category": [
-                    "Git & GitHub"
-                ],
-                "content": [
-                    "Git es esencial para cualquier desarrollador. Aprende a gestionar versiones de c\ufffddigo, trabajar en equipo y colaborar en proyectos open source. Domina comandos como commit, push, pull, merge y rebase."
-                ],
-                "keywords": [
-                    "Git, GitHub, control de versiones, repositorios, colaboraci\ufffdn, CI\/CD"
-                ],
-                "_version_": 1854626212330078209,
-                "_root_": "8"
-            },
-            {
-                "id": "9",
-                "title": [
-                    "Seguridad Web: HTTPS y JWT"
-                ],
-                "category": [
-                    "Seguridad"
-                ],
-                "content": [
-                    "La seguridad es cr\ufffdtica en aplicaciones web. Aprende sobre encriptaci\ufffdn HTTPS, autenticaci\ufffdn con JWT, y protecci\ufffdn contra vulnerabilidades comunes. Descubre c\ufffdmo implementar autenticaci\ufffdn segura y prevenir ataques XSS."
-                ],
-                "keywords": [
-                    "seguridad, HTTPS, JWT, autenticaci\ufffdn, encriptaci\ufffdn, vulnerabilidades"
-                ],
-                "_version_": 1854626212330078210,
-                "_root_": "9"
-            }
-        ]
-    }
+    "response":  {
+                     "docs":  [
+                                  {
+                                      "content":  "JavaScript es el lenguaje de programaci?n m?s popular para desarrollo web. En este art?culo exploramos las caracter?sticas modernas de ES6+, incluyendo arrow functions, destructuring, y promesas. Aprende sobre async/await, m?dulos ES6, template literals y todas las nuevas funcionalidades.",
+                                      "title":  "Introducci?n a JavaScript Moderno",
+                                      "category":  "JavaScript",
+                                      "id":  "1",
+                                      "keywords":  "JavaScript, ES6, programaci?n, desarrollo web, async await, promesas"
+                                  },
+                                  {
+                                      "content":  "Python se ha convertido en el lenguaje preferido para ciencia de datos y machine learning. Descubre las bibliotecas esenciales como NumPy, Pandas, y Matplotlib. Explora c?mo Python facilita el an?lisis de datos, visualizaci?n y creaci?n de modelos de inteligencia artificial.",
+                                      "title":  "Python para Data Science",
+                                      "category":  "Python",
+                                      "id":  "2",
+                                      "keywords":  "Python, data science, machine learning, pandas, numpy, inteligencia artificial"
+                                  },
+                                  {
+                                      "content":  "El dise?o responsive es esencial en el desarrollo web moderno. CSS Grid y Flexbox son las herramientas fundamentales para crear layouts flexibles y adaptables. Aprende a crear dise?os profesionales utilizando estas t?cnicas de CSS moderno.",
+                                      "title":  "CSS Grid y Flexbox: Gu?a Completa",
+                                      "category":  "HTML \u0026 CSS",
+                                      "id":  "3",
+                                      "keywords":  "CSS, HTML, flexbox, grid, dise?o responsive, frontend"
+                                  },
+                                  {
+                                      "content":  "React revolucion? el desarrollo frontend con su arquitectura basada en componentes. Los Hooks permiten usar state y otras caracter?sticas sin escribir clases. Descubre useState, useEffect, useContext y crea aplicaciones web interactivas.",
+                                      "title":  "React: Componentes y Hooks",
+                                      "category":  "React",
+                                      "id":  "4",
+                                      "keywords":  "React, hooks, componentes, frontend, useState, useEffect, SPA"
+                                  },
+                                  {
+                                      "content":  "Las bases de datos son fundamentales en cualquier aplicaci?n. SQL ofrece estructura y relaciones, mientras que NoSQL proporciona flexibilidad y escalabilidad. Compara PostgreSQL, MySQL, MongoDB y Redis.",
+                                      "title":  "SQL vs NoSQL: Cu?l elegir?",
+                                      "category":  "Bases de Datos",
+                                      "id":  "5",
+                                      "keywords":  "SQL, NoSQL, bases de datos, MongoDB, PostgreSQL, MySQL"
+                                  },
+                                  {
+                                      "content":  "Docker ha transformado la forma en que desplegamos aplicaciones. Los contenedores garantizan que tu aplicaci?n funcione igual en cualquier entorno. Aprende sobre contenedorizaci?n, im?genes Docker, Docker Compose y microservicios.",
+                                      "title":  "Docker y Contenedores",
+                                      "category":  "DevOps",
+                                      "id":  "6",
+                                      "keywords":  "Docker, contenedores, DevOps, microservicios, deploy, kubernetes"
+                                  },
+                                  {
+                                      "content":  "Los modelos de lenguaje grandes como GPT-4 est?n revolucionando la inteligencia artificial. Descubre c?mo funcionan y c?mo integrarlos en tus aplicaciones. Explora las APIs de OpenAI, Claude y otros servicios de IA generativa.",
+                                      "title":  "ChatGPT y LLMs: El Futuro de la IA",
+                                      "category":  "Inteligencia Artificial",
+                                      "id":  "7",
+                                      "keywords":  "inteligencia artificial, ChatGPT, LLM, IA generativa, GPT-4, machine learning"
+                                  },
+                                  {
+                                      "content":  "Git es esencial para cualquier desarrollador. Aprende a gestionar versiones de c?digo, trabajar en equipo y colaborar en proyectos open source. Domina comandos como commit, push, pull, merge y rebase.",
+                                      "title":  "Control de Versiones con Git",
+                                      "category":  "Git \u0026 GitHub",
+                                      "id":  "8",
+                                      "keywords":  "Git, GitHub, control de versiones, repositorios, colaboraci?n, CI/CD"
+                                  },
+                                  {
+                                      "content":  "La seguridad es cr?tica en aplicaciones web. Aprende sobre encriptaci?n HTTPS, autenticaci?n con JWT, y protecci?n contra vulnerabilidades comunes. Descubre c?mo implementar autenticaci?n segura y prevenir ataques XSS.",
+                                      "title":  "Seguridad Web: HTTPS y JWT",
+                                      "category":  "Seguridad",
+                                      "id":  "9",
+                                      "keywords":  "seguridad, HTTPS, JWT, autenticaci?n, encriptaci?n, vulnerabilidades"
+                                  }
+                              ],
+                     "numFound":  9,
+                     "numFoundExact":  true,
+                     "start":  0
+                 },
+    "responseHeader":  {
+                           "status":  0,
+                           "QTime":  0,
+                           "params":  {
+                                          "q":  "*:*",
+                                          "rows":  "100",
+                                          "wt":  "json"
+                                      }
+                       }
 }

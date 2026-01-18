@@ -328,6 +328,20 @@
         const SOLR_URL = isLocal ? './proxy-solr.php' : './data.json';
         const USE_JSON_FILE = !isLocal;
 
+        // Helper para convertir campos Solr (que pueden ser arrays) a strings
+        function getFieldValue(field) {
+            if (Array.isArray(field)) {
+                return field[0] || '';
+            }
+            return field || '';
+        }
+
+        // Helper para búsqueda segura (maneja arrays y strings)
+        function fieldContains(field, searchTerm) {
+            const value = getFieldValue(field);
+            return value.toString().toLowerCase().includes(searchTerm.toLowerCase());
+        }
+
         // Cargar todos los artículos al inicio
         window.addEventListener('load', cargarTodosLosArticulos);
 
@@ -357,10 +371,10 @@
 
                 container.innerHTML = articulos.map(art => `
                     <div class="article-card">
-                        <span class="category">${art.category || 'General'}</span>
-                        <h3>${art.title}</h3>
-                        <p>${art.content}</p>
-                        <p class="keywords">Palabras clave: ${art.keywords}</p>
+                        <span class="category">${getFieldValue(art.category) || 'General'}</span>
+                        <h3>${getFieldValue(art.title)}</h3>
+                        <p>${getFieldValue(art.content)}</p>
+                        <p class="keywords">Palabras clave: ${getFieldValue(art.keywords)}</p>
                     </div>
                 `).join('');
             } catch (error) {
@@ -414,10 +428,10 @@
                     // Filtrar manualmente por la query
                     const queryLower = query.toLowerCase();
                     const filteredDocs = fullData.response.docs.filter(doc => {
-                        return (doc.title && doc.title.toLowerCase().includes(queryLower)) ||
-                               (doc.content && doc.content.toLowerCase().includes(queryLower)) ||
-                               (doc.keywords && doc.keywords.toLowerCase().includes(queryLower)) ||
-                               (doc.category && doc.category.toLowerCase().includes(queryLower));
+                        return fieldContains(doc.title, queryLower) ||
+                               fieldContains(doc.content, queryLower) ||
+                               fieldContains(doc.keywords, queryLower) ||
+                               fieldContains(doc.category, queryLower);
                     });
                     
                     data = {
@@ -447,10 +461,10 @@
                 } else {
                     resultsDiv.innerHTML = resultados.map(doc => `
                         <div class="result-item">
-                            <span class="category">${doc.category || 'General'}</span>
-                            <h3>${doc.title}</h3>
-                            <p class="content">${doc.content}</p>
-                            <p class="keywords">Palabras clave: ${doc.keywords}</p>
+                            <span class="category">${getFieldValue(doc.category) || 'General'}</span>
+                            <h3>${getFieldValue(doc.title)}</h3>
+                            <p class="content">${getFieldValue(doc.content)}</p>
+                            <p class="keywords">Palabras clave: ${getFieldValue(doc.keywords)}</p>
                         </div>
                     `).join('');
                 }
