@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBlog - Búsqueda con Apache Solr</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .search-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .search-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-box button {
+            padding: 15px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-box button:hover {
+            background: #5568d3;
+        }
+
+        .search-box button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .search-stats {
+            color: #666;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+
+        .results-container {
+            margin-top: 20px;
+        }
+
+        .result-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .result-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .result-item h3 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 1.3em;
+        }
+
+        .result-item .category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+
+        .result-item .content {
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .result-item .keywords {
+            color: #999;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info-box strong {
+            color: #667eea;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .article-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .article-card h3 {
+            color: #667eea;
+            margin-bottom: 12px;
+            font-size: 1.4em;
+        }
+
+        .article-card .category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .article-card .keywords {
+            color: #999;
+            font-size: 0.9em;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        footer {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TechBlog</h1>
+            <p class="subtitle">Búsqueda impulsada por Apache Solr</p>
+        </header>
+
+        <div class="search-section">
+            <h2>Buscar artículos</h2>
+            
+            <div class="info-box">
+                <strong>Instrucciones:</strong><br>
+                1. Asegúrate de que Solr esté corriendo: <code>http://localhost:8983</code><br>
+                2. Indexa los documentos usando el script de indexación<br>
+                3. Prueba buscar: JavaScript, Python, React, Docker, seguridad, etc.
+            </div>
+
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Buscar artículos... (ej: JavaScript, Python, Docker)"
+                    onkeypress="if(event.key==='Enter') buscar()"
+                >
+                <button onclick="buscar()" id="btnBuscar">Buscar</button>
+            </div>
+
+            <div id="searchStats" class="search-stats"></div>
+            <div id="errorMessage"></div>
+            <div id="results" class="results-container"></div>
+        </div>
+
+        <h2 style="color: #333; text-align: center; margin-bottom: 20px; font-size: 2em;">
+            Todos los Artículos
+        </h2>
+
+        <div class="content-grid" id="allArticles">
+            <!-- Los artículos se cargarán aquí -->
+        </div>
+
+        <footer>
+            <p>© 2025 TechBlog - Búsqueda con Apache Solr</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                Motor de búsqueda de código abierto para indexación y búsqueda rápida
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        const SOLR_URL = 'http://localhost:8983/solr/techblog';
+
+        // Cargar todos los artículos al inicio
+        window.addEventListener('load', cargarTodosLosArticulos);
+
+        async function cargarTodosLosArticulos() {
+            try {
+                const response = await fetch(`${SOLR_URL}/select?q=*:*&rows=100&wt=json`);
+                if (!response.ok) throw new Error('No se pudo conectar con Solr');
+                
+                const data = await response.json();
+                const articulos = data.response.docs;
+                
+                const container = document.getElementById('allArticles');
+                
+                if (articulos.length === 0) {
+                    container.innerHTML = '<div class="no-results">No hay artículos indexados. Por favor, indexa los documentos primero.</div>';
+                    return;
+                }
+
+                container.innerHTML = articulos.map(art => `
+                    <div class="article-card">
+                        <span class="category">${art.category || 'General'}</span>
+                        <h3>${art.title}</h3>
+                        <p>${art.content}</p>
+                        <p class="keywords">Palabras clave: ${art.keywords}</p>
+                    </div>
+                `).join('');
+            } catch (error) {
+                const container = document.getElementById('allArticles');
+                container.innerHTML = `<div class="error-message">Error al cargar artículos: ${error.message}</div>`;
+            }
+        }
+
+        async function buscar() {
+            const query = document.getElementById('searchInput').value.trim();
+            const btnBuscar = document.getElementById('btnBuscar');
+            const resultsDiv = document.getElementById('results');
+            const statsDiv = document.getElementById('searchStats');
+            const errorDiv = document.getElementById('errorMessage');
+
+            // Limpiar mensajes previos
+            errorDiv.innerHTML = '';
+            resultsDiv.innerHTML = '';
+            statsDiv.innerHTML = '';
+
+            if (!query) {
+                errorDiv.innerHTML = '<div class="error-message">Por favor, ingresa un término de búsqueda.</div>';
+                return;
+            }
+
+            btnBuscar.disabled = true;
+            btnBuscar.textContent = 'Buscando...';
+
+            try {
+                // Construir query de Solr (búsqueda en múltiples campos)
+                const solrQuery = encodeURIComponent(query);
+                const url = `${SOLR_URL}/select?q=title:${solrQuery} OR content:${solrQuery} OR keywords:${solrQuery} OR category:${solrQuery}&wt=json&rows=20`;
+
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error('Error al conectar con Solr. Verifica que esté corriendo en localhost:8983');
+                }
+
+                const data = await response.json();
+                const resultados = data.response.docs;
+                const numFound = data.response.numFound;
+
+                // Mostrar estadísticas
+                statsDiv.innerHTML = `Se encontraron <strong>${numFound}</strong> resultado(s) para "<strong>${query}</strong>" en ${data.responseHeader.QTime}ms`;
+
+                if (resultados.length === 0) {
+                    resultsDiv.innerHTML = `
+                        <div class="no-results">
+                            <h3>No se encontraron resultados</h3>
+                            <p>Intenta con otros términos como: JavaScript, Python, React, Docker, etc.</p>
+                        </div>
+                    `;
+                } else {
+                    resultsDiv.innerHTML = resultados.map(doc => `
+                        <div class="result-item">
+                            <span class="category">${doc.category || 'General'}</span>
+                            <h3>${doc.title}</h3>
+                            <p class="content">${doc.content}</p>
+                            <p class="keywords">Palabras clave: ${doc.keywords}</p>
+                        </div>
+                    `).join('');
+                }
+
+            } catch (error) {
+                errorDiv.innerHTML = `
+                    <div class="error-message">
+                        <strong>Error:</strong> ${error.message}<br><br>
+                        <strong>Posibles soluciones:</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>Verifica que Solr esté corriendo: <code>http://localhost:8983</code></li>
+                            <li>Asegúrate de que el core "techblog" exista</li>
+                            <li>Verifica que CORS esté habilitado en Solr</li>
+                            <li>Indexa los documentos usando el script de indexación</li>
+                        </ul>
+                    </div>
+                `;
+            } finally {
+                btnBuscar.disabled = false;
+                btnBuscar.textContent = 'Buscar';
+            }
+        }
+
+        // Permitir búsqueda con Enter
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                buscar();
+            }
+        });
+    </script>
+</body>
+</html>

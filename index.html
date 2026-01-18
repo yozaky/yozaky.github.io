@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechBlog - Búsqueda Personalizada</title>
-    <script async src="https://cse.google.com/cse.js?cx=07dc44441fcb4432d"></script>
+    <title>TechBlog - Selecciona tu Buscador</title>
     <style>
         * {
             margin: 0;
@@ -14,120 +13,199 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f5f5f5;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            max-width: 1000px;
+            width: 100%;
         }
 
         header {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
             text-align: center;
+            color: white;
+            margin-bottom: 50px;
         }
 
         h1 {
-            color: #667eea;
+            font-size: 3em;
             margin-bottom: 10px;
-            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .subtitle {
-            color: #666;
-            font-size: 1.1em;
+            font-size: 1.2em;
+            color: #e0e0e0;
         }
 
-        .search-section {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
-        }
-
-        .search-section h2 {
-            color: #667eea;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .content-grid {
+        .cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
+            gap: 30px;
+            margin-top: 40px;
         }
 
-        .article-card {
+        .search-card {
             background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .article-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-
-        .article-card h3 {
-            color: #667eea;
-            margin-bottom: 12px;
-            font-size: 1.4em;
-        }
-
-        .article-card .category {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 5px 12px;
             border-radius: 20px;
-            font-size: 0.85em;
-            margin-bottom: 12px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
-        .article-card p {
+        .search-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            transition: height 0.3s;
+        }
+
+        .search-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .google-card::before {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .google-card:hover::before {
+            height: 100%;
+            opacity: 0.05;
+        }
+
+        .solr-card::before {
+            background: linear-gradient(90deg, #ff6b6b 0%, #c92a2a 100%);
+        }
+
+        .solr-card:hover::before {
+            height: 100%;
+            opacity: 0.05;
+        }
+
+        .card-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .google-card .card-icon {
+            color: #667eea;
+        }
+
+        .solr-card .card-icon {
+            color: #ff6b6b;
+        }
+
+        .card-title {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .card-description {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .card-features {
+            text-align: left;
+            margin: 20px 0;
             color: #555;
-            margin-bottom: 10px;
         }
 
-        .article-card .keywords {
-            color: #999;
-            font-size: 0.9em;
-            font-style: italic;
+        .card-features li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .card-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .google-card .card-features li::before {
+            color: #667eea;
+        }
+
+        .solr-card .card-features li::before {
+            color: #ff6b6b;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s;
             margin-top: 10px;
         }
 
-        footer {
-            background: white;
-            padding: 20px;
+        .google-card .card-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .google-card .card-button:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+            transform: scale(1.05);
+        }
+
+        .solr-card .card-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #c92a2a 100%);
+        }
+
+        .solr-card .card-button:hover {
+            background: linear-gradient(135deg, #ff8787 0%, #e03131 100%);
+            transform: scale(1.05);
+        }
+
+        .info-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 30px;
+            margin-top: 40px;
+            color: white;
             text-align: center;
-            margin-top: 30px;
-            color: #666;
         }
 
-        .info-box {
-            background: #f0f4ff;
-            border-left: 4px solid #667eea;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
+        .info-section h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
         }
 
-        .info-box strong {
-            color: #667eea;
+        .info-section p {
+            color: #e0e0e0;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -135,102 +213,54 @@
     <div class="container">
         <header>
             <h1>TechBlog</h1>
-            <p class="subtitle">Tu fuente de información sobre tecnología, programación y desarrollo web</p>
+            <p class="subtitle">Elige tu motor de búsqueda preferido</p>
         </header>
 
-        <div class="search-section">
-            <h2>Busca en nuestro sitio</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 20px;">
-                Prueba buscar: JavaScript, Python, HTML, CSS, React, inteligencia artificial, etc.
-            </p>
-            <div class="gcse-searchbox-only"></div>
-            
-        </div>
-
-        <h2 style="color: #333; text-align: center; margin-bottom: 20px; font-size: 2em;">
-            Artículos Recientes
-        </h2>
-
-        <div class="content-grid">
-            <div class="article-card">
-                <span class="category">JavaScript</span>
-                <h3>Introducción a JavaScript Moderno</h3>
-                <p>JavaScript es el lenguaje de programación más popular para desarrollo web. En este artículo exploramos las características modernas de ES6+, incluyendo arrow functions, destructuring, y promesas.</p>
-                <p>Aprende sobre async/await, módulos ES6, template literals y todas las nuevas funcionalidades que hacen de JavaScript un lenguaje más poderoso y expresivo.</p>
-                <p class="keywords">Palabras clave: JavaScript, ES6, programación, desarrollo web, async await, promesas</p>
+        <div class="cards-container">
+            <!-- Google Custom Search -->
+            <div class="search-card google-card" onclick="window.location.href='google-search.html'">
+                <div class="card-icon">🔍</div>
+                <h2 class="card-title">Google Custom Search</h2>
+                <p class="card-description">
+                    Búsqueda impulsada por el motor de Google con resultados indexados globalmente
+                </p>
+                <ul class="card-features">
+                    <li>Indexación automática de Google</li>
+                    <li>Resultados de toda la web</li>
+                    <li>Interfaz familiar y confiable</li>
+                    <li>Sin necesidad de servidor</li>
+                </ul>
+                <a href="google-search.html" class="card-button">Buscar con Google</a>
             </div>
 
-            <div class="article-card">
-                <span class="category">Python</span>
-                <h3>Python para Data Science</h3>
-                <p>Python se ha convertido en el lenguaje preferido para ciencia de datos y machine learning. Descubre las bibliotecas esenciales como NumPy, Pandas, y Matplotlib.</p>
-                <p>Explora cómo Python facilita el análisis de datos, visualización y creación de modelos de inteligencia artificial con frameworks como TensorFlow y scikit-learn.</p>
-                <p class="keywords">Palabras clave: Python, data science, machine learning, pandas, numpy, inteligencia artificial</p>
-            </div>
-
-            <div class="article-card">
-                <span class="category">HTML & CSS</span>
-                <h3>CSS Grid y Flexbox: Guía Completa</h3>
-                <p>El diseño responsive es esencial en el desarrollo web moderno. CSS Grid y Flexbox son las herramientas fundamentales para crear layouts flexibles y adaptables.</p>
-                <p>Aprende a crear diseños profesionales utilizando estas técnicas de CSS moderno, desde layouts simples hasta diseños complejos multi-columna.</p>
-                <p class="keywords">Palabras clave: CSS, HTML, flexbox, grid, diseño responsive, frontend</p>
-            </div>
-
-            <div class="article-card">
-                <span class="category">React</span>
-                <h3>React: Componentes y Hooks</h3>
-                <p>React revolucionó el desarrollo frontend con su arquitectura basada en componentes. Los Hooks permiten usar state y otras características sin escribir clases.</p>
-                <p>Descubre useState, useEffect, useContext y crea aplicaciones web interactivas y escalables con React. Aprende las mejores prácticas y patrones de diseño.</p>
-                <p class="keywords">Palabras clave: React, hooks, componentes, frontend, useState, useEffect, SPA</p>
-            </div>
-
-            <div class="article-card">
-                <span class="category">Bases de Datos</span>
-                <h3>SQL vs NoSQL: ¿Cuál elegir?</h3>
-                <p>Las bases de datos son fundamentales en cualquier aplicación. SQL ofrece estructura y relaciones, mientras que NoSQL proporciona flexibilidad y escalabilidad.</p>
-                <p>Compara PostgreSQL, MySQL, MongoDB y Redis. Entiende cuándo usar cada tipo de base de datos según las necesidades de tu proyecto.</p>
-                <p class="keywords">Palabras clave: SQL, NoSQL, bases de datos, MongoDB, PostgreSQL, MySQL</p>
-            </div>
-
-            <div class="article-card">
-                <span class="category">DevOps</span>
-                <h3>Docker y Contenedores</h3>
-                <p>Docker ha transformado la forma en que desplegamos aplicaciones. Los contenedores garantizan que tu aplicación funcione igual en cualquier entorno.</p>
-                <p>Aprende sobre contenedorización, imágenes Docker, Docker Compose y cómo implementar microservicios escalables y portables.</p>
-                <p class="keywords">Palabras clave: Docker, contenedores, DevOps, microservicios, deploy, kubernetes</p>
-            </div>
-
-            <div class="article-card">
-                <span class="category">Inteligencia Artificial</span>
-                <h3>ChatGPT y LLMs: El Futuro de la IA</h3>
-                <p>Los modelos de lenguaje grandes (LLMs) como GPT-4 están revolucionando la inteligencia artificial. Descubre cómo funcionan y cómo integrarlos en tus aplicaciones.</p>
-                <p>Explora las APIs de OpenAI, Claude y otros servicios de IA generativa para crear aplicaciones inteligentes y automatizar tareas complejas.</p>
-                <p class="keywords">Palabras clave: inteligencia artificial, ChatGPT, LLM, IA generativa, GPT-4, machine learning</p>
-            </div>
-
-            <div class="article-card">
-                <span class="category">Git & GitHub</span>
-                <h3>Control de Versiones con Git</h3>
-                <p>Git es esencial para cualquier desarrollador. Aprende a gestionar versiones de código, trabajar en equipo y colaborar en proyectos open source.</p>
-                <p>Domina comandos como commit, push, pull, merge y rebase. Descubre GitHub Actions para CI/CD y automatización de flujos de trabajo.</p>
-                <p class="keywords">Palabras clave: Git, GitHub, control de versiones, repositorios, colaboración, CI/CD</p>
-            </div>
-
-            <div class="article-card">
-                <span class="category">Seguridad</span>
-                <h3>Seguridad Web: HTTPS y JWT</h3>
-                <p>La seguridad es crítica en aplicaciones web. Aprende sobre encriptación HTTPS, autenticación con JWT, y protección contra vulnerabilidades comunes.</p>
-                <p>Descubre cómo implementar autenticación segura, prevenir ataques XSS y SQL injection, y proteger los datos de tus usuarios.</p>
-                <p class="keywords">Palabras clave: seguridad, HTTPS, JWT, autenticación, encriptación, vulnerabilidades</p>
+            <!-- Apache Solr -->
+            <div class="search-card solr-card" onclick="window.location.href='solr-search.html'">
+                <div class="card-icon">⚡</div>
+                <h2 class="card-title">Apache Solr</h2>
+                <p class="card-description">
+                    Motor de búsqueda de código abierto con control total y búsqueda local
+                </p>
+                <ul class="card-features">
+                    <li>Búsqueda ultra rápida</li>
+                    <li>Control total de indexación</li>
+                    <li>Código abierto</li>
+                    <li>Resultados en milisegundos</li>
+                </ul>
+                <a href="solr-search.html" class="card-button">Buscar con Solr</a>
             </div>
         </div>
 
-        <footer>
-            <p>© 2025 TechBlog - Sitio de demostración para Google Custom Search</p>
-            <p style="margin-top: 10px; font-size: 0.9em;">
-                Este sitio contiene contenido rico en palabras clave para probar la funcionalidad de búsqueda personalizada de Google
+        <div class="info-section">
+            <h3>Comparación de Tecnologías</h3>
+            <p>
+                <strong>Google Custom Search</strong> utiliza la infraestructura de búsqueda de Google, 
+                ideal para sitios públicos que necesitan búsqueda sin configuración de servidor.
             </p>
-        </footer>
+            <p style="margin-top: 15px;">
+                <strong>Apache Solr</strong> es una plataforma de búsqueda empresarial de código abierto, 
+                perfecta para control total sobre indexación y resultados, con búsquedas extremadamente rápidas.
+            </p>
+        </div>
     </div>
 </body>
 </html>
