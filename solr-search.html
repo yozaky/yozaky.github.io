@@ -322,14 +322,15 @@
     </div>
 
     <script>
-        const SOLR_URL = 'http://localhost:8983/solr/techblog';
+        // Usar el proxy PHP para evitar problemas de CORS
+        const SOLR_URL = './proxy-solr.php';
 
         // Cargar todos los artículos al inicio
         window.addEventListener('load', cargarTodosLosArticulos);
 
         async function cargarTodosLosArticulos() {
             try {
-                const response = await fetch(`${SOLR_URL}/select?q=*:*&rows=100&wt=json`);
+                const response = await fetch(`${SOLR_URL}?q=*:*&rows=100`);
                 if (!response.ok) throw new Error('No se pudo conectar con Solr');
                 
                 const data = await response.json();
@@ -379,7 +380,7 @@
             try {
                 // Construir query de Solr (búsqueda en múltiples campos)
                 const solrQuery = encodeURIComponent(query);
-                const url = `${SOLR_URL}/select?q=title:${solrQuery} OR content:${solrQuery} OR keywords:${solrQuery} OR category:${solrQuery}&wt=json&rows=20`;
+                const url = `${SOLR_URL}?q=title:${solrQuery} OR content:${solrQuery} OR keywords:${solrQuery} OR category:${solrQuery}&rows=20`;
 
                 const response = await fetch(url);
                 
