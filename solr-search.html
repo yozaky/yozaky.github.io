@@ -322,15 +322,29 @@
     </div>
 
     <script>
-        // Usar el proxy PHP para evitar problemas de CORS
-        const SOLR_URL = './proxy-solr.php';
+        // Detectar si estamos en local o en GitHub Pages
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        
+        // En local: usar proxy PHP en tiempo real
+        // En GitHub Pages: usar archivo JSON estático (data.json)
+        const SOLR_URL = isLocal ? './proxy-solr.php' : './data.json';
+        const USE_JSON_FILE = !isLocal;
 
         // Cargar todos los artículos al inicio
         window.addEventListener('load', cargarTodosLosArticulos);
 
         async function cargarTodosLosArticulos() {
             try {
-                const response = await fetch(`${SOLR_URL}?q=*:*&rows=100`);
+                let fetchUrl = SOLR_URL;
+                if (!isLocal && !SOLR_URL.includes('data.json')) {
+                    fetchUrl = `${SOLR_URL}?q=*:*&rows=100`;
+                } else if (!isLocal) {
+                    fetchUrl = SOLR_URL; // data.json no necesita parámetros
+                } else {
+                    fetchUrl = `${SOLR_URL}?q=*:*&rows=100`;
+                }
+                
+                const response = await fetch(fetchUrl);
                 if (!response.ok) throw new Error('No se pudo conectar con Solr');
                 
                 const data = await response.json();
@@ -378,17 +392,47 @@
             btnBuscar.textContent = 'Buscando...';
 
             try {
-                // Construir query de Solr (búsqueda en múltiples campos)
-                const solrQuery = encodeURIComponent(query);
-                const url = `${SOLR_URL}?q=title:${solrQuery} OR content:${solrQuery} OR keywords:${solrQuery} OR category:${solrQuery}&rows=20`;
-
-                const response = await fetch(url);
+                let url;
+                let data;
                 
-                if (!response.ok) {
-                    throw new Error('Error al conectar con Solr. Verifica que esté corriendo en localhost:8983');
+                if (isLocal) {
+                    // En local: hacer búsqueda en tiempo real a Solr
+                    const solrQuery = encodeURIComponent(query);
+                    url = `${SOLR_URL}?q=title:${solrQuery} OR content:${solrQuery} OR keywords:${solrQuery} OR category:${solrQuery}&rows=20`;
+                    
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error('Error al conectar con Solr. Verifica que esté corriendo en localhost:8983');
+                    }
+                    data = await response.json();
+                } else {
+                    // En GitHub Pages: cargar data.json y filtrar en JavaScript
+                    const response = await fetch('./data.json');
+                    if (!response.ok) {
+                        throw new Error('No se pudo cargar el archivo de datos');
+                    }
+                    const fullData = await response.json();
+                    
+                    // Filtrar manualmente por la query
+                    const queryLower = query.toLowerCase();
+                    const filteredDocs = fullData.response.docs.filter(doc => {
+                        return (doc.title && doc.title.toLowerCase().includes(queryLower)) ||
+                               (doc.content && doc.content.toLowerCase().includes(queryLower)) ||
+                               (doc.keywords && doc.keywords.toLowerCase().includes(queryLower)) ||
+                               (doc.category && doc.category.toLowerCase().includes(queryLower));
+                    });
+                    
+                    data = {
+                        response: {
+                            docs: filteredDocs.slice(0, 20),
+                            numFound: filteredDocs.length
+                        },
+                        responseHeader: {
+                            QTime: 0
+                        }
+                    };
                 }
-
-                const data = await response.json();
+                
                 const resultados = data.response.docs;
                 const numFound = data.response.numFound;
 
